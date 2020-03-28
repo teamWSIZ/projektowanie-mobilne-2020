@@ -10,15 +10,18 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends AppCompatActivity {
-    class MyFragmentAdapter extends FragmentStatePagerAdapter{
+    static class MyFragmentAdapter extends FragmentStatePagerAdapter{
 
-        public MyFragmentAdapter(@NonNull FragmentManager fm) {
+        private MyFragmentAdapter(@NonNull FragmentManager fm) {
             super(fm);
         }
 
         @NonNull
         @Override
         public Fragment getItem(int position) {
+            if(position==0)
+                return new GraphFragment();
+
             return new BlankFragment();
         }
 
