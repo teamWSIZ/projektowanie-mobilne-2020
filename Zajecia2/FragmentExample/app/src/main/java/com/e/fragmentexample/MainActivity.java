@@ -3,6 +3,7 @@ package com.e.fragmentexample;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -28,6 +29,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return 2;
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if(position==0){
+                return "Wykresy";
+            }
+            return "Lista";
         }
     }
 
