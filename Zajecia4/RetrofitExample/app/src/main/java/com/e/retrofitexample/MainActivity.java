@@ -37,5 +37,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Call<List<Pressure>> pressure = apiInterface.getPressure(5);
+
+        pressure.enqueue(new Callback<List<Pressure>>() {
+            @Override
+            public void onResponse(Call<List<Pressure>> call, Response<List<Pressure>> response) {
+                Log.d("pressure",response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<List<Pressure>> call, Throwable t) {
+
+            }
+        });
+
     }
 }
