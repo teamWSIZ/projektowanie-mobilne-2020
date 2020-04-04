@@ -8,4 +8,6 @@ import retrofit2.http.GET;
 public interface APIInterface {
     @GET("json")
     Call<List<SensorData>> getSensordata();
+
+
 }
