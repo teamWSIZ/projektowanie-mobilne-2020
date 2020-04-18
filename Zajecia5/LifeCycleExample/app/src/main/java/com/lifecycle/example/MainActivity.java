@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,15 @@ public class MainActivity extends AppCompatActivity {
         textViewValueB.setText("0");
 
         DataViewModel dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+
+        dataViewModel.getMutableLiveDataA().observe(this, new Observer<Double>() {
+            @Override
+            public void onChanged(Double a) {
+                textViewValueA.setText("A: "+a);
+            }
+        });
+
+        dataViewModel.loadData();
 
         Log.d("LifeCycle", "OnCreate");
     }
