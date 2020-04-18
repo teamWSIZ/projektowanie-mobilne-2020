@@ -33,7 +33,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        dataViewModel.loadData();
+        dataViewModel.getMutableLiveDataB().observe(this, new Observer<Double>() {
+            @Override
+            public void onChanged(Double b) {
+                textViewValueB.setText("B: "+b);
+            }
+        });
 
         Log.d("LifeCycle", "OnCreate");
     }
