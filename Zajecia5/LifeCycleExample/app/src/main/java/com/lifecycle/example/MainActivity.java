@@ -16,6 +16,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        Log.d("LifeCycle","OnStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Log.d("LifeCycle","OnStop");
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
