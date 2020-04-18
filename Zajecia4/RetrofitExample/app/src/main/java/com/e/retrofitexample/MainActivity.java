@@ -1,15 +1,9 @@
 package com.e.retrofitexample;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import androidx.lifecycle.ViewModelProviders;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +12,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        APIInterface apiInterface = RetrofitClient.getRetrofit().create(APIInterface.class);
+        DataViewModel dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+
+        /*APIInterface apiInterface = RetrofitClient.getRetrofit().create(APIInterface.class);
 
         Call<List<SensorData>> sensorData = apiInterface.getSensordata();
 
@@ -50,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+         */
 
     }
 }
