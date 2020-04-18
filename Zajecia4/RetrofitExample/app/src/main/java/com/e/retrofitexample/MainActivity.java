@@ -1,9 +1,13 @@
 package com.e.retrofitexample;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,24 +18,14 @@ public class MainActivity extends AppCompatActivity {
 
         DataViewModel dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
 
-        /*APIInterface apiInterface = RetrofitClient.getRetrofit().create(APIInterface.class);
-
-        Call<List<SensorData>> sensorData = apiInterface.getSensordata();
-
-        sensorData.enqueue(new Callback<List<SensorData>>() {
+        dataViewModel.getMutableSensorData().observe(this, new Observer<List<SensorData>>() {
             @Override
-            public void onResponse(Call<List<SensorData>> call, Response<List<SensorData>> response) {
-                if(response.isSuccessful()){
-                    Log.d("response",response.body().toString());
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<SensorData>> call, Throwable t) {
-
+            public void onChanged(List<SensorData> sensorData) {
+                Log.d("Response",sensorData.toString());
             }
         });
+
+        /*
 
         Call<List<Pressure>> pressure = apiInterface.getPressure(5);
 
