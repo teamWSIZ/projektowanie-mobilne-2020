@@ -1,4 +1,4 @@
-package com.e.lifecycleexample;
+package com.lifecycle.example;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.e.lifecycleexample", appContext.getPackageName());
+        assertEquals("com.lifecycle.lifecycleexample", appContext.getPackageName());
     }
 }
