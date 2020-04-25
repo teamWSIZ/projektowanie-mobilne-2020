@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "mydata")
 public class MyData {
-    @PrimaryKey
-    long id;
+    @PrimaryKey(autoGenerate = true)
+    Long id;
     double temperature;
     double humidity;
 

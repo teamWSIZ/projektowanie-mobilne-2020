@@ -5,5 +5,5 @@ import androidx.room.RoomDatabase;
 
 @Database(entities = {MyData.class}, version = 1, exportSchema = false )
 abstract public class MyDatabase extends RoomDatabase {
-    public MyDataInterface myDataInterface;
+    public abstract MyDataInterface myDataInterface();
 }
