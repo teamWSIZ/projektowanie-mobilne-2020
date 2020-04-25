@@ -23,7 +23,5 @@ public class MainActivity extends AppCompatActivity {
             myDataInterface.insertData(new MyData(40,10));
 
         List<MyData> myData = myDataInterface.getData();
-
-
     }
 }
