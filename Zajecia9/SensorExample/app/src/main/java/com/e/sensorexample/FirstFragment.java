@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment;
 public class FirstFragment extends Fragment implements SensorEventListener {
 
     private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
 
     @Override
     public View onCreateView(
@@ -30,6 +31,10 @@ public class FirstFragment extends Fragment implements SensorEventListener {
         super.onViewCreated(view, savedInstanceState);
 
         mSensorManager = (SensorManager)getActivity().getSystemService(getContext().SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(SensorManager.SENSOR_ACCELEROMETER);
+
+        mSensorManager.registerListener(this,mAccelerometer,SensorManager.SENSOR_DELAY_NORMAL);
+
 
         view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
             @Override
