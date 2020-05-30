@@ -5,6 +5,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class FirstFragment extends Fragment implements SensorEventListener {
         super.onViewCreated(view, savedInstanceState);
 
         mSensorManager = (SensorManager)getActivity().getSystemService(getContext().SENSOR_SERVICE);
-        mAccelerometer = mSensorManager.getDefaultSensor(SensorManager.SENSOR_ACCELEROMETER);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         mSensorManager.registerListener(this,mAccelerometer,SensorManager.SENSOR_DELAY_NORMAL);
 
@@ -47,7 +48,8 @@ public class FirstFragment extends Fragment implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-
+        float gravity[] = event.values;
+        Log.v("accelerometer","gravity = ["+gravity[0]+","+gravity[1]+","+gravity[2]+"]");
     }
 
     @Override
