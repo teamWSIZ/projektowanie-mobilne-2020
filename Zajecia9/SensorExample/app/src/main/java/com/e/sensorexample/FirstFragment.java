@@ -19,6 +19,8 @@ public class FirstFragment extends Fragment implements SensorEventListener {
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
 
+    private Sensor mMagneticField;
+
     private float mMaxAcceleration = 0.0f;
     private TextView mAccelerationText;
 
@@ -36,28 +38,52 @@ public class FirstFragment extends Fragment implements SensorEventListener {
 
         mAccelerationText = view.findViewById(R.id.maxAcceleration);
 
-        mSensorManager = (SensorManager)getActivity().getSystemService(getContext().SENSOR_SERVICE);
+        mSensorManager = (SensorManager) getActivity().getSystemService(getContext().SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mMagneticField = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
-        mSensorManager.registerListener(this,mAccelerometer,SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+        }, mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float gravity[] = event.values;
-        float vectorLength = (float)Math.sqrt(gravity[0]*gravity[0]+gravity[1]*gravity[1]+gravity[2]*gravity[2]);
 
-        if(vectorLength>mMaxAcceleration)
-            mMaxAcceleration = vectorLength;
+        float values[] = event.values;
+        float vectorLength = (float) Math.sqrt(values[0] * values[0] + values[1] * values[1] + values[2] * values[2]);
 
-        Log.v("accelerometer","gravity = ["+gravity[0]+","+gravity[1]+","+gravity[2]+"] length="+vectorLength);
-        Log.v("accelerometer", "maxAcceleration: "+mMaxAcceleration);
+        switch (event.sensor.getType()) {
+            case Sensor.TYPE_ACCELEROMETER:
 
-        mAccelerationText.setText(""+mMaxAcceleration);
+                if (vectorLength > mMaxAcceleration)
+                    mMaxAcceleration = vectorLength;
+
+                Log.v("sensor", "gravity = [" + values[0] + "," + values[1] + "," + values[2] + "] length=" + vectorLength);
+
+                mAccelerationText.setText("" + mMaxAcceleration);
+                break;
+            case Sensor.TYPE_MAGNETIC_FIELD:
+
+                Log.v("sensor", "magnetic field = [" + values[0] + "," + values[1] + "," + values[2] + "] length=" + vectorLength);
+
+                break;
+        }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
+
 }
