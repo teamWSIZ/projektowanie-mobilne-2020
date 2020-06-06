@@ -21,6 +21,8 @@ public class FirstFragment extends Fragment implements SensorEventListener {
 
     private Sensor mMagneticField;
 
+    private Sensor mOrientationSensor;
+
     private float mMaxAcceleration = 0.0f;
     private TextView mAccelerationText;
 
@@ -42,18 +44,12 @@ public class FirstFragment extends Fragment implements SensorEventListener {
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mMagneticField = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
+        mOrientationSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager.registerListener(new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
+        mSensorManager.registerListener(this, mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
 
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-            }
-        }, mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this,mOrientationSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -68,14 +64,17 @@ public class FirstFragment extends Fragment implements SensorEventListener {
                 if (vectorLength > mMaxAcceleration)
                     mMaxAcceleration = vectorLength;
 
-                Log.v("sensor", "gravity = [" + values[0] + "," + values[1] + "," + values[2] + "] length=" + vectorLength);
+                //Log.v("sensor", "gravity = [" + values[0] + "," + values[1] + "," + values[2] + "] length=" + vectorLength);
 
                 mAccelerationText.setText("" + mMaxAcceleration);
                 break;
             case Sensor.TYPE_MAGNETIC_FIELD:
 
-                Log.v("sensor", "magnetic field = [" + values[0] + "," + values[1] + "," + values[2] + "] length=" + vectorLength);
+                //Log.v("sensor", "magnetic field = [" + values[0] + "," + values[1] + "," + values[2] + "] length=" + vectorLength);
 
+                break;
+            case Sensor.TYPE_ORIENTATION:
+                Log.v("sensor", "orientation = [" + toAzimuth(values[0]) + "," + Math.toDegrees(values[1]) + "," + Math.toDegrees(values[2]) + "] length=" + vectorLength);
                 break;
         }
     }
@@ -83,6 +82,10 @@ public class FirstFragment extends Fragment implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    double toAzimuth(double value){
+        return 90.0 + Math.toDegrees(value);
     }
 
 
