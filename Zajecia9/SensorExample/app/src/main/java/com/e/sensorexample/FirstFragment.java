@@ -29,6 +29,8 @@ public class FirstFragment extends Fragment implements SensorEventListener {
 
     private ImageView mCompassView;
 
+    private AngleFilter mAngleFilter = new AngleFilter(50);
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -48,7 +50,7 @@ public class FirstFragment extends Fragment implements SensorEventListener {
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mMagneticField = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
-        mOrientationSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        mOrientationSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR);
 
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
@@ -77,8 +79,9 @@ public class FirstFragment extends Fragment implements SensorEventListener {
                 //Log.v("sensor", "magnetic field = [" + values[0] + "," + values[1] + "," + values[2] + "] length=" + vectorLength);
 
                 break;
-            case Sensor.TYPE_ORIENTATION:
-                mCompassView.setRotation((float)toAzimuth(values[0]));
+            case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
+                mAngleFilter.add(values[0]);
+                mCompassView.setRotation((float)toAzimuth(mAngleFilter.average()));
                 Log.v("sensor", "orientation = [" + toAzimuth(values[0]) + "," + Math.toDegrees(values[1]) + "," + Math.toDegrees(values[2]) + "] length=" + vectorLength);
                 break;
         }
