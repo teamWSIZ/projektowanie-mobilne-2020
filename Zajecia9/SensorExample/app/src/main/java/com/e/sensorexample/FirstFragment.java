@@ -27,7 +27,8 @@ public class FirstFragment extends Fragment implements SensorEventListener {
     private float mMaxAcceleration = 0.0f;
     private TextView mAccelerationText;
 
-    private ImageView mCompassView;
+    private ImageView mCompassPicutre;
+    private CompassView mCompassView;
 
     private AngleFilter mAngleFilter = new AngleFilter(50);
 
@@ -44,6 +45,8 @@ public class FirstFragment extends Fragment implements SensorEventListener {
         super.onViewCreated(view, savedInstanceState);
 
         mAccelerationText = view.findViewById(R.id.maxAcceleration);
+        mCompassPicutre = view.findViewById(R.id.compassPicture);
+
         mCompassView = view.findViewById(R.id.compassView);
 
         mSensorManager = (SensorManager) getActivity().getSystemService(getContext().SENSOR_SERVICE);
@@ -81,7 +84,8 @@ public class FirstFragment extends Fragment implements SensorEventListener {
                 break;
             case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
                 mAngleFilter.add(values[0]);
-                mCompassView.setRotation((float)toAzimuth(mAngleFilter.average()));
+                mCompassPicutre.setRotation((float)toAzimuth(mAngleFilter.average()));
+                mCompassView.updateAzimuth((float)toAzimuth(mAngleFilter.average()));
                 Log.v("sensor", "orientation = [" + toAzimuth(values[0]) + "," + Math.toDegrees(values[1]) + "," + Math.toDegrees(values[2]) + "] length=" + vectorLength);
                 break;
         }
