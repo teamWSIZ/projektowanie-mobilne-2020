@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,8 @@ public class FirstFragment extends Fragment implements SensorEventListener {
     private float mMaxAcceleration = 0.0f;
     private TextView mAccelerationText;
 
+    private ImageView mCompassView;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -39,6 +42,7 @@ public class FirstFragment extends Fragment implements SensorEventListener {
         super.onViewCreated(view, savedInstanceState);
 
         mAccelerationText = view.findViewById(R.id.maxAcceleration);
+        mCompassView = view.findViewById(R.id.compassView);
 
         mSensorManager = (SensorManager) getActivity().getSystemService(getContext().SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -74,6 +78,7 @@ public class FirstFragment extends Fragment implements SensorEventListener {
 
                 break;
             case Sensor.TYPE_ORIENTATION:
+                mCompassView.setRotation((float)toAzimuth(values[0]));
                 Log.v("sensor", "orientation = [" + toAzimuth(values[0]) + "," + Math.toDegrees(values[1]) + "," + Math.toDegrees(values[2]) + "] length=" + vectorLength);
                 break;
         }
