@@ -5,7 +5,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,9 +83,9 @@ public class FirstFragment extends Fragment implements SensorEventListener {
                 break;
             case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
                 mAngleFilter.add(values[0]);
-                mCompassPicutre.setRotation((float)toAzimuth(mAngleFilter.average()));
+                //mCompassPicutre.setRotation((float)toAzimuth(mAngleFilter.average()));
                 mCompassView.updateAzimuth((float)toAzimuth(mAngleFilter.average()));
-                Log.v("sensor", "orientation = [" + toAzimuth(values[0]) + "," + Math.toDegrees(values[1]) + "," + Math.toDegrees(values[2]) + "] length=" + vectorLength);
+                //Log.v("sensor", "orientation = [" + toAzimuth(values[0]) + "," + Math.toDegrees(values[1]) + "," + Math.toDegrees(values[2]) + "] length=" + vectorLength);
                 break;
         }
     }
