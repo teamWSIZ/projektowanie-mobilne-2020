@@ -39,6 +39,7 @@ public class CompassView extends View {
         int r = Math.min(xcenter,ycenter);
 
         mPaint.setColor(Color.BLUE);
+        mPaint.setStrokeWidth(5.0f);
 
         //canvas.translate(xcenter,ycenter);
         //canvas.rotate(mAzimuth-90);
@@ -47,8 +48,13 @@ public class CompassView extends View {
         //canvas.rotate(mAzimuth);
         //canvas.drawRect(rect, mPaint);
         canvas.drawLine(xcenter,ycenter,
-                (float) (xcenter+r*Math.sin(Math.toRadians(mAzimuth+90))),
-                (float) (ycenter+r*Math.cos(Math.toRadians(mAzimuth+90))),mPaint);
+                (float) (xcenter+r*Math.sin(Math.toRadians(180-mAzimuth))),
+                (float) (ycenter+r*Math.cos(Math.toRadians(180-mAzimuth))),mPaint);
+
+        /*canvas.translate(xcenter,ycenter);
+        canvas.rotate(mAzimuth-90);
+
+        canvas.drawLine(0,0, r, r,mPaint);*/
     }
 
     void updateAzimuth(float azimuth){
