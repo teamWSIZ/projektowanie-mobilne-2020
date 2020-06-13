@@ -48,13 +48,16 @@ public class CompassView extends View {
 
         //canvas.translate(xcenter,ycenter);
         //canvas.rotate(mAzimuth-90);
-        Rect rect = new Rect(0,0,200,200);
+
+        Rect rect = new Rect(0,0,getMeasuredWidth(),getMeasuredHeight());
+
+        //canvas.drawRect(rect, mPaint);
+        canvas.drawBitmap(mCompassBackground,null,rect,null);
 
         //canvas.rotate(mAzimuth);
-        //canvas.drawRect(rect, mPaint);
-        canvas.drawLine(xcenter,ycenter,
+        /*canvas.drawLine(xcenter,ycenter,
                 (float) (xcenter+r*Math.sin(Math.toRadians(180-mAzimuth))),
-                (float) (ycenter+r*Math.cos(Math.toRadians(180-mAzimuth))),mPaint);
+                (float) (ycenter+r*Math.cos(Math.toRadians(180-mAzimuth))),mPaint);*/
 
         /*canvas.translate(xcenter,ycenter);
         canvas.rotate(mAzimuth-90);
