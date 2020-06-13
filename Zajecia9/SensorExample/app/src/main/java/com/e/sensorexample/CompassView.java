@@ -2,6 +2,8 @@ package com.e.sensorexample;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,6 +17,8 @@ public class CompassView extends View {
     private float mAzimuth = 45;
     private Paint mPaint;
 
+    private Bitmap mCompassBackground;
+
     public CompassView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
@@ -25,6 +29,7 @@ public class CompassView extends View {
 
     void init(){
         mPaint = new Paint();
+        mCompassBackground = BitmapFactory.decodeResource(getResources(),R.drawable.compass);
 
     }
 
