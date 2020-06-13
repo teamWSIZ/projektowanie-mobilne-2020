@@ -14,8 +14,11 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 public class CompassView extends View {
+
     private float mAzimuth = 45;
     private Paint mPaint;
+    private Paint mBitmapPaint;
+
 
     private Bitmap mCompassBackground;
 
@@ -29,6 +32,8 @@ public class CompassView extends View {
 
     void init(){
         mPaint = new Paint();
+        mBitmapPaint = new Paint();
+
         mCompassBackground = BitmapFactory.decodeResource(getResources(),R.drawable.compass);
 
     }
@@ -52,12 +57,12 @@ public class CompassView extends View {
         Rect rect = new Rect(0,0,getMeasuredWidth(),getMeasuredHeight());
 
         //canvas.drawRect(rect, mPaint);
-        canvas.drawBitmap(mCompassBackground,null,rect,null);
+        canvas.drawBitmap(mCompassBackground,null,rect,mBitmapPaint);
 
         //canvas.rotate(mAzimuth);
-        /*canvas.drawLine(xcenter,ycenter,
+        canvas.drawLine(xcenter,ycenter,
                 (float) (xcenter+r*Math.sin(Math.toRadians(180-mAzimuth))),
-                (float) (ycenter+r*Math.cos(Math.toRadians(180-mAzimuth))),mPaint);*/
+                (float) (ycenter+r*Math.cos(Math.toRadians(180-mAzimuth))),mPaint);
 
         /*canvas.translate(xcenter,ycenter);
         canvas.rotate(mAzimuth-90);
