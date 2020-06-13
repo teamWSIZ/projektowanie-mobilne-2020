@@ -60,9 +60,9 @@ public class CompassView extends View {
         canvas.drawBitmap(mCompassBackground,null,rect,mBitmapPaint);
 
         //canvas.rotate(mAzimuth);
-        canvas.drawLine(xcenter,ycenter,
+        /*canvas.drawLine(xcenter,ycenter,
                 (float) (xcenter+r*Math.sin(Math.toRadians(180-mAzimuth))),
-                (float) (ycenter+r*Math.cos(Math.toRadians(180-mAzimuth))),mPaint);
+                (float) (ycenter+r*Math.cos(Math.toRadians(180-mAzimuth))),mPaint);*/
 
         /*canvas.translate(xcenter,ycenter);
         canvas.rotate(mAzimuth-90);
