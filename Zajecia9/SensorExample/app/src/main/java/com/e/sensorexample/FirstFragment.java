@@ -46,6 +46,8 @@ public class FirstFragment extends Fragment implements SensorEventListener {
         mAccelerationText = view.findViewById(R.id.maxAcceleration);
         mCompassPicutre = view.findViewById(R.id.compassPicture);
 
+        mCompassPicutre.setVisibility(View.INVISIBLE);
+
         mCompassView = view.findViewById(R.id.compassView);
 
         mSensorManager = (SensorManager) getActivity().getSystemService(getContext().SENSOR_SERVICE);
@@ -83,7 +85,10 @@ public class FirstFragment extends Fragment implements SensorEventListener {
                 break;
             case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
                 mAngleFilter.add(values[0]);
-                mCompassPicutre.setRotation((float)toAzimuth(mAngleFilter.average()));
+
+                if(mCompassPicutre.getVisibility()==View.VISIBLE)
+                    mCompassPicutre.setRotation((float)toAzimuth(mAngleFilter.average()));
+
                 mCompassView.updateAzimuth((float)toAzimuth(mAngleFilter.average()));
                 //Log.v("sensor", "orientation = [" + toAzimuth(values[0]) + "," + Math.toDegrees(values[1]) + "," + Math.toDegrees(values[2]) + "] length=" + vectorLength);
                 break;

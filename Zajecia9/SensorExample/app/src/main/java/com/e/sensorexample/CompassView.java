@@ -52,6 +52,7 @@ public class CompassView extends View {
         mPaint.setStrokeWidth(5.0f);
 
         //canvas.translate(xcenter,ycenter);
+        canvas.translate(100,100);
         //canvas.rotate(mAzimuth-90);
 
         Rect rect = new Rect(0,0,getMeasuredWidth(),getMeasuredHeight());
