@@ -37,8 +37,8 @@
 
     <com.e.sensorexample.CompassView
         android:id="@+id/compassView"
-        android:layout_width="182dp"
-        android:layout_height="173dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:background="#FFBBBBBB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

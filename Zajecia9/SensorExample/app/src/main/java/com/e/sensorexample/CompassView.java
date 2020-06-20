@@ -30,11 +30,11 @@ public class CompassView extends View {
         init();
     }
 
-    void init(){
+    void init() {
         mPaint = new Paint();
         mBitmapPaint = new Paint();
 
-        mCompassBackground = BitmapFactory.decodeResource(getResources(),R.drawable.compass);
+        mCompassBackground = BitmapFactory.decodeResource(getResources(), R.drawable.compass);
 
     }
 
@@ -43,22 +43,49 @@ public class CompassView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int xcenter = getMeasuredWidth()/2;
-        int ycenter = getMeasuredHeight()/2;
+        int xcenter = getMeasuredWidth() / 2;
+        int ycenter = getMeasuredHeight() / 2;
 
-        int r = Math.min(xcenter,ycenter);
+        int r = Math.min(xcenter, ycenter);
 
         mPaint.setColor(Color.BLUE);
         mPaint.setStrokeWidth(5.0f);
 
         //canvas.translate(xcenter,ycenter);
-        canvas.translate(100,100);
+        //canvas.translate(100,100);
         //canvas.rotate(mAzimuth-90);
 
-        Rect rect = new Rect(0,0,getMeasuredWidth(),getMeasuredHeight());
+        Rect rect = new Rect(0, 0, getMeasuredWidth(), getMeasuredHeight());
 
         //canvas.drawRect(rect, mPaint);
-        canvas.drawBitmap(mCompassBackground,null,rect,mBitmapPaint);
+
+
+        //for(int i=0;i<50;i++) {
+        //canvas.rotate(i*2);
+
+        canvas.save();
+        canvas.translate(rect.centerX(), rect.centerY());
+        canvas.rotate(mAzimuth - 90);
+        canvas.translate(-rect.centerX(), -rect.centerY());
+
+        //canvas.rotate(20,rect.centerX(), rect.centerY());
+
+        canvas.drawBitmap(mCompassBackground, null, rect, mBitmapPaint);
+        canvas.restore();
+
+        Rect rect1 = new Rect(0, 0, 100, 100);
+
+        float width = getMeasuredWidth();
+        float height = getMeasuredHeight();
+
+        float xposition = 0.0f + width * 3.0f / 4.0f;// - rect1.width() / 2.0f;
+        float yposition = 0.0f + height * 1.0f / 4.0f;// - rect1.height() / 2.0f;
+
+        canvas.translate(xposition, yposition);
+        canvas.rotate(mAzimuth - 90, xposition, yposition);
+
+        canvas.drawRect(rect1, mPaint);
+        //}
 
         //canvas.rotate(mAzimuth);
         /*canvas.drawLine(xcenter,ycenter,
@@ -71,7 +98,7 @@ public class CompassView extends View {
         canvas.drawLine(0,0, r, r,mPaint);*/
     }
 
-    void updateAzimuth(float azimuth){
+    void updateAzimuth(float azimuth) {
         mAzimuth = azimuth;
         invalidate();
     }
