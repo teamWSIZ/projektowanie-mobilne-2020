@@ -78,11 +78,11 @@ public class CompassView extends View {
         float width = getMeasuredWidth();
         float height = getMeasuredHeight();
 
-        float xposition = 0.0f + width * 3.0f / 4.0f;// - rect1.width() / 2.0f;
-        float yposition = 0.0f + height * 1.0f / 4.0f;// - rect1.height() / 2.0f;
+        float xposition = 0.0f + width * 3.0f / 4.0f - rect1.width() / 2.0f;
+        float yposition = 0.0f + height * 1.0f / 4.0f - rect1.height() / 2.0f;
 
+        canvas.rotate(mAzimuth - 90, rect1.centerX(), rect1.centerY());
         canvas.translate(xposition, yposition);
-        canvas.rotate(mAzimuth - 90, xposition, yposition);
 
         canvas.drawRect(rect1, mPaint);
         //}
