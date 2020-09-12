@@ -8,9 +8,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.label.ImageLabel;
+import com.google.mlkit.vision.label.ImageLabeler;
+import com.google.mlkit.vision.label.ImageLabeling;
+import com.google.mlkit.vision.label.defaults.ImageLabelerOptions;
 import com.mindorks.paracamera.Camera;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
             Bitmap bitmap = camera.getCameraBitmap();
             if(bitmap != null) {
                 cameraImage.setImageBitmap(bitmap);
+                InputImage image = InputImage.fromBitmap(bitmap, 0);
+                getLabels(image);
             }else{
                 Toast.makeText(this.getApplicationContext(),"Picture not taken!",Toast.LENGTH_SHORT).show();
             }
@@ -69,4 +81,33 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         camera.deleteImage();
     }
+
+    void getLabels(InputImage image){
+        ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
+
+        labeler.process(image)
+                .addOnSuccessListener(new OnSuccessListener<List<ImageLabel>>() {
+                    @Override
+                    public void onSuccess(List<ImageLabel> labels) {
+                        // Task completed successfully
+                        // ...
+                        String text = "";
+
+                        for(ImageLabel label : labels){
+                            text = label.getText()+"  probability:"+label.getConfidence()+"  ";
+                        }
+
+                        Toast.makeText(MainActivity.this,text,Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Task failed with an exception
+                        // ...
+                    }
+                });
+
+    }
+
 }
