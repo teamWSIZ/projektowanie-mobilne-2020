@@ -1,9 +1,12 @@
 package com.e.cameraimage;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,5 +47,26 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    // Get the bitmap and image path onActivityResult of an activity or fragment
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == Camera.REQUEST_TAKE_PHOTO){
+            Bitmap bitmap = camera.getCameraBitmap();
+            if(bitmap != null) {
+                cameraImage.setImageBitmap(bitmap);
+            }else{
+                Toast.makeText(this.getApplicationContext(),"Picture not taken!",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    // The bitmap is saved in the app's folder
+//  If the saved bitmap is not required use following code
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        camera.deleteImage();
     }
 }
